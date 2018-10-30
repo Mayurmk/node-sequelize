@@ -1,0 +1,36 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.2",
+    "title": "Node Starter APIs",
+    "description": "This is a backbone for Node Sequelize APIs",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/liscences/MIT"
+    }
+  },
+  "host": "192.168.200.153:4040",
+  "tags": [{
+    "name": "User",
+    "description": "sdkjbksdf"
+  }],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": [ "User Authentication APIs" ]
+      },
+      "summary": "Cearte summary",
+      "description": "Create a new user",
+      "parameters": []
+    }
+  }
+}

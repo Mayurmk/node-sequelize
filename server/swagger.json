@@ -1,0 +1,373 @@
+{
+  "swagger":"2.0",
+  "info":{
+    "version":"1.0.1",
+    "title":"Node starter APIs",
+    "descriptions":"Node backend rest APIs",
+    "license":{
+      "name":"MIT",
+      "url":"https://opensource.org/licenses/MIT"
+    }
+  },
+  "host":"localhost:4040",
+  "tags":[{
+    "name":"User Books",
+    "descriptions":"API for create book for user"
+  }],
+  "schemes":[
+    "http"
+  ],
+  "consumes":[
+    "application/json"
+  ],
+  "produces":[
+    "application/json"
+  ],
+  "paths":{
+    "/api/auth/register":{
+      "post":{
+        "tags":[
+          "User Authentication APIs"
+        ],
+        "summary":"Create a new user in system",
+        "descriptions":"Create a new user",
+        "parameters":[
+          {
+            "name":"user",
+            "in":"body",
+            "descriptions":"User want to that create",
+            "schema":{
+              "$ref":"#/definations/User"
+            }
+          }
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"New user is created",
+            "schema":{
+              "$ref":"#/definations/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login":{
+      "post":{
+        "tags":[
+          "User Authentication APIs"
+          ],
+        "summary":"Login user into the system",
+        "descriptions":"Login user",
+        "parameters":[
+          {
+            "name":"User Login",
+            "in":"body",
+            "descriptions":"User want to login into the system",
+            "schema":{
+              "$ref":"#/definations/LoginUser"
+            }
+          }
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"New user is created",
+            "schema":{
+              "$ref":"#/definations/LoginUser"
+            }
+          }
+        }
+      }
+    },
+    "/api/users":{
+      "get":{
+        "tags":[
+          "Users"
+        ],
+        "summary":"List of user of system",
+        "descriptiosn":"Display list of the user",
+        "parameters":[
+          {
+            "name":"Authorization",
+            "in":"header",
+            "required":true,
+            "type":"string",
+            "enum":"Bearer"
+          }
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"success list"
+
+          }
+        }
+      }
+    },
+    "/api/users/profile":{
+      "get":{
+        "tags":[
+          "Users"
+        ],
+        "summary":"User profile of logged user",
+        "descriptions":"Get user details of the login user",
+        "parameters":[
+          {
+            "name":"Authorization",
+            "in":"header",
+            "required":true,
+            "type":"string"
+          }
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"Getting user logged user details"
+          }
+        }
+      }
+    },
+    "/api/users/{userId}":{
+      "parameters":[
+        {
+          "$ref":"#/parameters/userId"
+        },
+        {
+          "$ref":"#/parameters/Authorization"
+        }
+      ],
+      "get":{
+        "tags":[
+          "Users"
+        ],
+        "summary":"Get user details by id",
+        "responses":{
+          "200":{
+            "descriptions":"Ok"
+          }
+        }
+      },
+      "put":{
+        "tags":[
+          "Users"
+        ],
+        "summary":"Update the user by id",
+        "parameters":[
+        {
+          "name":"user",
+          "in":"body",
+          "schema":{
+            "$ref":"#/definations/UpdateUser"
+          }
+        }
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"User updated."
+          }
+        }
+      },
+      "delete":{
+        "tags":[
+          "Users"
+        ],
+        "summary":"Delete user by id",
+        "descriptions":"Delete user by id",
+        "responses":{
+          "200":{
+            "descriptions":"User deleted",
+            "schema":{
+              "$ref":"#/definations/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/books":{
+      "parameters":[
+        {
+          "$ref":"#/parameters/Authorization"
+        }
+      ],
+      "get":{
+        "tags":[
+          "Users Books"
+        ],
+        "summary":"list of users book",
+        "responses":{
+          "200":{
+            "descriptions":"list of all books"
+          }
+        }
+      },
+      "post":{
+        "tags":[
+          "Users Books"
+        ],
+        "summary":"Create a user book",
+        "descriptions":"User creat his own book",
+        "parameters":[
+          {
+            "name":"book",
+            "in":"body",
+            "descriptions":"User book details",
+            "schema":{
+              "$ref":"#/definations/CreateBook"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "descriptions":"Book created"
+          }
+        }
+      }
+    },
+    "/api/books/{bookId}":{
+      "parameters":[
+        {
+          "name":"bookId",
+          "in":"path",
+          "required":true,
+          "type":"string"
+        },
+        {
+          "$ref":"#/parameters/Authorization"
+        }
+      ],
+      "get":{
+        "tags":[
+          "Users Books"
+        ],
+        "summary":"Get books by id",
+        "responses":{
+          "200":{
+            "descriptions":"Get books by id"
+          }
+        }
+      },
+      "put":{
+        "tags":[
+          "Users Books"
+        ],
+        "summary":"Update user books",
+        "descriptions":"Update book details by id",
+        "parameters":[{
+              "name":"book",
+              "in":"body",
+              "schema":{
+                "$ref":"#/definations/CreateBook"
+              }
+            }
+          ],
+        "responses":{
+          "200":{
+            "descriptions":"Book updated"
+          }
+        }
+      },
+      "delete":{
+        "tags":[
+          "Users Books"
+        ],
+        "summary":"Delete book by id",
+        "responses":{
+          "200":{
+            "descriptions":"Books deleted"
+          }
+        }
+      }
+    }
+
+  },
+  "definations":{
+    "User":{
+        "required":[
+          "email"
+        ],
+      "properties":{
+        "email":{
+          "type":"string",
+          "uniqueItems":true
+        },
+        "password":{
+          "type":"string"
+        },
+        "firstName":{
+          "type":"string"
+        },
+        "lastName":{
+          "type":"string"
+        }
+      }
+    },
+    "LoginUser":{
+      "required":[
+        "email"
+      ],
+      "properties":{
+        "email":{
+          "type":"string"
+        },
+        "password":{
+          "type":"string"
+        }
+      }
+    },
+    "UpdateUser":{
+      "required":[
+        "email"
+      ],
+      "properties":{
+        "email":{
+          "type":"string"
+        },
+        "firstName":{
+          "type":"string"
+        },
+        "lastName":{
+          "type":"string"
+        }
+      }
+    },
+    "CreateBook":{
+      "required":[
+        "bookName"
+      ],
+      "properties":{
+        "bookName":{
+          "type":"string"
+        },
+        "author":{
+          "type":"string"
+        },
+        "isbn":{
+          "type":"string"
+        }
+      }
+    }
+  },
+  "parameters":{
+    "Authorization":{
+      "name":"Authorization",
+      "in":"header",
+      "required":true,
+      "descriptions":"An Authorization token of the user",
+      "schema":{
+        "type":"string"
+      }
+    },
+    "userId":{
+      "name":"userId",
+      "in":"path",
+      "required":true,
+      "descriptions":"Id of the user that you want to get detail",
+      "schema":{
+        "type":"string"
+      }
+    }
+  }
+}
